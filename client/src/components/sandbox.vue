@@ -1,8 +1,8 @@
 <template>
   <div class="container">
     <h2 v-on:click="animateSVG">click</h2>
-    <anshey :data="ansheyData"></anshey>
-    <ross :data="ansheyData"></ross>
+    <anshey :data="profileData"></anshey>
+    <ross :data="profileData"></ross>
   </div>
 </template>
 
@@ -16,24 +16,22 @@
   export default {
     data() {
       return {
-        ansheyData: {
-          class: {
+        profileData: {
+          parentClass: {
             'profile': true,
+            'hidden': true
+          },
+          bgClass: {
+            'bg': true,
             'hidden': true
           }
         },
-        rossData: {
-          class: {
-            'profile': true,
-            'hidden': true
-          }
-        }
       }
     },
     methods: {
       animateSVG() {
-        this.ansheyData.class['hidden'] = false
-        this.rossData.class['hidden'] = false
+        this.profileData.parentClass['hidden'] = false
+        this.profileData.bgClass['hidden'] = false
         const ctx = this
         anime({
           targets: 'path',
@@ -42,8 +40,8 @@
           duration: 1000,
           complete() {
             setTimeout(() => {
-              ctx.ansheyData.class['hidden'] = true
-              ctx.rossData.class['hidden'] = true
+              ctx.profileData.parentClass['hidden'] = true
+              ctx.profileData.bgClass['hidden'] = true
             }, 1500)
           }
         })
