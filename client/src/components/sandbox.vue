@@ -1,21 +1,21 @@
 <template>
   <div class="container">
     <h2 v-on:click="animateSVG">click</h2>
-    <anshey :data="profileData"></anshey>
-    <ross :data="profileData"></ross>
+    <component :is="profileOne" :data="profileData"></component>
+    <component :is="profileTwo" :data="profileData"></component>
   </div>
 </template>
 
 
 <script>
   import anime from 'animejs'
-
-  import anshey from './svg/anshey'
-  import ross from './svg/ross'
+  import svg from './svg'
 
   export default {
     data() {
       return {
+        profileOne: 'aenea',
+        profileTwo: 'darren',
         profileData: {
           parentClass: {
             'profile': true,
@@ -48,8 +48,7 @@
       }
     },
     components: {
-      anshey,
-      ross
+      ...svg
     }
   }
 
