@@ -9,3 +9,5 @@
     name: 'app'
   }
 </script>
+
+<style src="./scss/index.scss">
