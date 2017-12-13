@@ -2,7 +2,7 @@
   <div class="container">
 
     <transition name="fade">
-      <div v-if="!profileOne || !profileTwo" class="text-center vertical-center">
+      <div v-if="!profileOne || !profileTwo" class="password-container text-center vertical-center">
 
         <h1>Enter your password</h1>
         <input placeholder="Enter password..." v-model="password" v-on:keydown="checkForEnter"></input>
@@ -153,20 +153,27 @@
 </script>
 
 <style scoped lang="scss">
-  .container {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100vh;
-    overflow: auto;
-    background: rgba(255, 0, 0, 0.01);
-  }
 
   .vertical-center {
     position: relative;
     top: 50%;
     transform: translateY(-50%);
+  }
+
+  .password-container {
+    width: 50%;
+    margin: auto;
+    box-sizing: border-box;
+    background: white;
+    box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.2);
+    padding-top: 48px;
+    padding-bottom: 48px;
+    @media screen and (max-width: 1000px) {
+      width: calc(100% - 96px);
+    }
+    @media screen and (max-width: 500px) {
+      width: calc(100% - 48px);
+    }
   }
 
   .profile-container {
@@ -184,7 +191,7 @@
     text-align: center;
     overflow: hidden;
     background: white;
-    border: 1px solid grey;
+    box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.2);
     svg {
       max-height: calc(100vh - 96px);
     }
