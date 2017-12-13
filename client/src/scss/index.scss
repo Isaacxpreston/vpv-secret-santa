@@ -1,6 +1,6 @@
 @import './fonts/fonts.scss';
-
-html, body {
+html,
+body {
   font-family: 'Lato';
 }
 
@@ -20,15 +20,18 @@ html, body {
   text-align: center;
 }
 
-.fade-enter-active, .fade-leave-active {
+.fade-enter-active,
+.fade-leave-active {
   transition: opacity .75s
 }
 
-.fade-delayed-enter-active, .fade-delayed-leave-active {
+.fade-delayed-enter-active,
+.fade-delayed-leave-active {
   transition: opacity .75s;
 }
 
-.fade-delayed-enter-active, .fade-enter-active {
+.fade-delayed-enter-active,
+.fade-enter-active {
   transition-delay: 0.75s
 }
 
@@ -36,19 +39,27 @@ html, body {
   transition-delay: 0s;
 }
 
-.fade-enter, .fade-leave-to, .fade-delayed-enter, .fade-delayed-leave-to {
+.fade-enter,
+.fade-leave-to,
+.fade-delayed-enter,
+.fade-delayed-leave-to {
   opacity: 0;
   transition-delay: 0s
 }
 
-  .container {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100vh;
-    overflow: auto;
-    background-image: url('./image/Background.png');
-    background-size: cover !important;
-    background-repeat: no-repeat;
-  }
+.container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  overflow: auto;
+  background-image: url('./image/Background.png');
+  background-size: cover !important;
+  background-repeat: no-repeat;
+}
+
+.box-shadow {
+  background: white;
+  box-shadow: 0px 0px 24px 2px rgba(0,0,0,0.25);
+}

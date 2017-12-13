@@ -2,7 +2,7 @@
   <div class="container">
 
     <transition name="fade">
-      <div v-if="!profileOne || !profileTwo" class="password-container text-center vertical-center">
+      <div v-if="!profileOne || !profileTwo" class="password-container text-center vertical-center box-shadow">
 
         <h1>Enter your password</h1>
         <input placeholder="Enter password..." v-model="password" v-on:keydown="checkForEnter"></input>
@@ -16,15 +16,15 @@
       
       <div class="profile-container">
 
-        <div class="profile-inner">
+        <div class="profile-inner box-shadow">
           <component :is="profileOne.toLowerCase()" :data="profileData"></component>
           <h3 class="hidden">(spacer)</h3>
           <h1 class="name hidden">{{profileOne}}</h1>
         </div>
 
-        <div class="profile-inner">
+        <div class="profile-inner box-shadow">
           <component :is="profileTwo.toLowerCase()" :data="profileData"></component>
-          <h3>You are buying for:</h3>
+          <h3 class="name">You are buying for:</h3>
           <h1 class="name hidden">{{profileTwo}}</h1>
         </div>
 
@@ -32,7 +32,7 @@
       
 
       <div class="reset-button text-center hidden" :class="resetButtonClass">
-        <h2 class="cursor-pointer " v-on:click="resetButtonClick">Reset</h2>
+        <h2 class="cursor-pointer box-shadow" v-on:click="resetButtonClick">Reset</h2>
       </div>
 
     </div>
@@ -154,6 +154,13 @@
 
 <style scoped lang="scss">
 
+  .reset-button {
+    h2 {
+      display: inline-block;
+      padding: 0px 12px 0px 12px;
+    }
+  }
+
   .vertical-center {
     position: relative;
     top: 50%;
@@ -164,8 +171,6 @@
     width: 50%;
     margin: auto;
     box-sizing: border-box;
-    background: white;
-    box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.2);
     padding-top: 48px;
     padding-bottom: 48px;
     @media screen and (max-width: 1000px) {
@@ -190,8 +195,6 @@
     margin: auto;
     text-align: center;
     overflow: hidden;
-    background: white;
-    box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.2);
     svg {
       max-height: calc(100vh - 96px);
     }
