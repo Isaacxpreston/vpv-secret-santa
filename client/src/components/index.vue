@@ -1,31 +1,43 @@
 <template>
   <div class="container">
 
-    <div v-if="!profileOne || !profileTwo" class="text-center">
-      <h1>Enter your password</h1>
-      <input placeholder="Enter password..." v-model="password" v-on:keydown="checkForEnter"></input>
-      <h1 v-on:click="getProfiles" class="cursor-pointer">Submit</h1>
-    </div>
+    <transition name="fade">
+      <div v-if="!profileOne || !profileTwo" class="text-center vertical-center">
 
+        <h1>Enter your password</h1>
+        <input placeholder="Enter password..." v-model="password" v-on:keydown="checkForEnter"></input>
+        <h1 v-on:click="getProfiles" class="cursor-pointer ">Submit</h1>
 
-    <div v-if="profileOne || profileTwo">
-      <div class="profilesContainer">
-        <div class="profileInner">
+      </div>
+    </transition>
+    
+    <transition name="fade-delayed">
+    <div v-if="profileOne || profileTwo" class="vertical-center">
+      
+      <div class="profile-container">
+
+        <div class="profile-inner">
           <component :is="profileOne.toLowerCase()" :data="profileData"></component>
-          <h1 :class="nameClass">{{profileOne}}</h1>
+          <h3 class="hidden">(spacer)</h3>
+          <h1 class="name hidden">{{profileOne}}</h1>
         </div>
-        <div class="profileInner">
+
+        <div class="profile-inner">
           <component :is="profileTwo.toLowerCase()" :data="profileData"></component>
-          <h1 :class="nameClass">You are buying for: {{profileTwo}}</h1>
+          <h3>You are buying for:</h3>
+          <h1 class="name hidden">{{profileTwo}}</h1>
         </div>
+
+      </div>
+      
+
+      <div class="reset-button text-center hidden" :class="resetButtonClass">
+        <h2 class="cursor-pointer " v-on:click="resetButtonClick">Reset</h2>
       </div>
 
-      <div class="resetButton" :class="resetButtonClass">
-        <h1 class="cursor-pointer" v-on:click="resetButtonClick">Reset</h1>
-      </div>
     </div>
-
-
+    </transition>
+    
 
   </div>
 </template>
@@ -43,13 +55,7 @@
         profileOne: null,
         profileTwo: '',
         resetButtonClass: {
-          'text-center': true,
           'pointer-none': true,
-          'hidden': true
-        },
-        nameClass: {
-          'name': true,
-          'hidden': true
         },
         profileData: {
           parentClass: {
@@ -77,13 +83,15 @@
             targets: ".name",
             opacity: 1,
             easing: 'easeInOutCubic',
-            duration: 1000
+            duration: 1000,
+            delay: 750
           })
           .add({
             targets: ".profile, .bg",
             opacity: 1,
             easing: 'easeInOutCubic',
-            duration: 1000
+            duration: 1000,
+            delay: 250
           })
           .add({
             targets: 'path',
@@ -93,7 +101,7 @@
             offset: "-=1000"
           })
           .add({
-            targets: ".resetButton",
+            targets: ".reset-button",
             opacity: 1,
             easing: 'easeInOutCubic',
             duration: 1000,
@@ -105,7 +113,7 @@
       resetButtonClick() {
         const ctx = this
         anime({
-          targets: ".name, .profile, .bg, .resetButton",
+          targets: ".name, .profile, .bg, .reset-button",
           opacity: 0,
           duration: 1000,
           easing: 'easeInOutCubic',
@@ -145,25 +153,60 @@
 </script>
 
 <style scoped lang="scss">
-  .profilesContainer {
+  .container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    overflow: auto;
+    background: rgba(255, 0, 0, 0.01);
+  }
+
+  .vertical-center {
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  .profile-container {
     position: relative;
     display: flex;
     width: 100%;
+    padding-top: 48px;
   }
 
-  .profileInner {
+  .profile-inner {
     position: relative;
-    width: 50%;
+    box-sizing: border-box;
+    width: calc(50% - 96px - 96px);
     margin: auto;
     text-align: center;
     overflow: hidden;
-    // svg {
-    //   height: 250px;
-    // }
+    background: white;
+    border: 1px solid grey;
+    svg {
+      max-height: calc(100vh - 96px);
+    }
+    @media screen and (max-width: 1000px) {
+      width: calc(50% - 48px);
+    }
+    @media screen and (max-width: 500px) {
+      width: calc(50% - 12px);
+    }
   }
 
   input {
-    transform: scale(1.5, 1.5);
+    transform: scale(1.75, 1.75);
+    &:focus {
+      outline: 0;
+    }
+  }
+
+  .profile {
+    position: relative;
+    width: 100%;
+    height: 100%;
   }
 
 </style>
