@@ -73,7 +73,7 @@
         })
       },
       getProfiles() {
-        axios.get(`http://localhost:5000/api/password/${this.password}`)
+        axios.get(`${process.env.API}/api/password/${this.password}`)
           .then((res) => {
             if (res.data) {
               this.profileOne = res.data.name
