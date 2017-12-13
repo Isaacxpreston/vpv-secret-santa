@@ -3,8 +3,19 @@
     <input placeholder="enter password..." v-model="password"></input>
     <h1 v-on:click="getProfiles">submit</h1>
     <h2 v-if="profileOne || profileTwo" v-on:click="animateSVG">click</h2>
-    <component :is="profileOne" :data="profileData"></component>
-    <component :is="profileTwo" :data="profileData"></component>
+
+
+    <div class="profilesContainer">
+      <div v-if="profileOne || profileTwo" class="profile">
+        <h1 :class="nameClass">{{profileOne}}</h1>
+        <component :is="profileOne.toLowerCase()" :data="profileData"></component>
+      </div>
+
+      <div v-if="profileOne || profileTwo" class="profile">
+        <h1 :class="nameClass">{{profileTwo}}</h1>
+        <component :is="profileTwo.toLowerCase()" :data="profileData"></component>
+      </div>
+    </div>
 
   </div>
 </template>
@@ -21,6 +32,9 @@
         password: null,
         profileOne: null,
         profileTwo: '',
+        nameClass: {
+          'hidden': true
+        },
         profileData: {
           parentClass: {
             'profile': true,
@@ -35,6 +49,7 @@
     },
     methods: {
       animateSVG() {
+        this.nameClass['hidden'] = false
         this.profileData.parentClass['hidden'] = false
         this.profileData.bgClass['hidden'] = false
         const ctx = this
@@ -45,6 +60,7 @@
           duration: 1000,
           complete() {
             setTimeout(() => {
+              ctx.nameClass['hidden'] = true
               ctx.profileData.parentClass['hidden'] = true
               ctx.profileData.bgClass['hidden'] = true
             }, 1500)
@@ -54,10 +70,11 @@
       getProfiles() {
         axios.get(`http://localhost:5000/api/password/${this.password}`)
           .then((res) => {
-            console.log('here')
             if (res.data) {
-              this.profileOne = res.data.name.toLowerCase()
-              this.profileTwo = res.data.gift.toLowerCase()
+              this.profileOne = res.data.name
+              this.profileTwo = res.data.gift
+            } else {
+              this.profileOne = this.profileTwo = null
             }
           })
           .catch((error) => {
@@ -65,7 +82,6 @@
           })
       }
     },
-    mounted() {},
     components: {
       ...svg
     }
@@ -79,4 +95,14 @@
     font-size: 100px;
   }
 
+  .profilesContainer {
+    position: relative;
+    display: flex;
+  }
+
+  .profile {
+    position: relative;
+    margin: auto;
+    text-align: center;
+  }
 </style>

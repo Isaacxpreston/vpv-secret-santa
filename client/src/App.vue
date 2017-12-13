@@ -1,13 +1,7 @@
 <template>
-  <div id="app">
+  <div>
     <router-view />
   </div>
 </template>
-
-<script>
-  export default {
-    name: 'app'
-  }
-</script>
 
 <style src="./scss/index.scss">
