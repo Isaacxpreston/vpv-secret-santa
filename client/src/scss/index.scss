@@ -2,6 +2,9 @@
 
 html, body {
   font-family: 'Lato';
+  background-image: url('./image/Background.png');
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
 .hidden {
@@ -26,9 +29,17 @@ html, body {
 
 .fade-delayed-enter-active, .fade-delayed-leave-active {
   transition: opacity .75s;
+}
+
+.fade-delayed-enter-active, .fade-enter-active {
   transition-delay: 0.75s
 }
 
+.fade-delayed-leave-active {
+  transition-delay: 0s;
+}
+
 .fade-enter, .fade-leave-to, .fade-delayed-enter, .fade-delayed-leave-to {
-  opacity: 0
+  opacity: 0;
+  transition-delay: 0s
 }
