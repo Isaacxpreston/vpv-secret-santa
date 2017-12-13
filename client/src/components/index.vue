@@ -1,22 +1,125 @@
 <template>
-  <div>
-    <h1>{{ msg }}</h1>
-    <sandbox></sandbox>
+  <div class="container">
+    <input placeholder="enter password..." v-model="password"></input>
+    <h1 v-on:click="getProfiles">submit</h1>
+    <h2 v-if="profileOne || profileTwo" v-on:click="animateSVG">click</h2>
+    <h1 v-else>enter your password</h1>
+
+
+    <div class="profilesContainer">
+      <div v-if="profileOne || profileTwo" class="profileInner">
+        <h1 :class="nameClass">You: {{profileOne}}</h1>
+        <component :is="profileOne.toLowerCase()" :data="profileData"></component>
+      </div>
+
+      <div v-if="profileOne || profileTwo" class="profileInner">
+        <h1 :class="nameClass">You need to buy a gift for: {{profileTwo}}</h1>
+        <component :is="profileTwo.toLowerCase()" :data="profileData"></component>
+      </div>
+    </div>
+
   </div>
 </template>
 
+
 <script>
-  import sandbox from './sandbox'
+  import anime from 'animejs'
+  import axios from 'axios'
+  import svg from './svg'
 
   export default {
     data() {
       return {
-        msg: 'VPV Secret Santa 2017'
+        password: null,
+        profileOne: null,
+        profileTwo: '',
+        nameClass: {
+          'name': true,
+          'hidden': true
+        },
+        profileData: {
+          parentClass: {
+            'profile': true,
+            'hidden': true
+          },
+          bgClass: {
+            'bg': true,
+            'hidden': true
+          }
+        },
+      }
+    },
+    methods: {
+      animateSVG() {
+        const tl = anime.timeline()
+        tl
+          .add({
+            targets: ".name, .profile",
+            opacity: 1,
+            easing: 'easeInOutCubic',
+            duration: 1000
+          })
+          .add({
+            targets: 'path',
+            strokeDashoffset: [anime.setDashoffset, 0],
+            easing: 'easeInOutCubic',
+            duration: 3000,
+            offset: "-=1000",
+          })
+          .add({
+            targets: ".bg",
+            opacity: 1,
+            easing: 'easeInOutCubic',
+            duration: 1000
+          })
+          .add({
+            targets: ".name, .profile, .bg",
+            opacity: 0,
+            duration: 1000,
+            easing: 'easeInOutCubic',
+            delay: 2000
+          })
+      },
+      getProfiles() {
+        axios.get(`${process.env.API}/api/password/${this.password}`)
+          .then((res) => {
+            if (res.data) {
+              this.profileOne = res.data.name
+              this.profileTwo = res.data.gift
+            } else {
+              this.profileOne = this.profileTwo = null
+            }
+          })
+          .catch((error) => {
+            console.log(error)
+          })
       }
     },
     components: {
-      sandbox
+      ...svg
     }
   }
 
 </script>
+
+<style scoped lang="scss">
+  h2 {
+    cursor: pointer;
+    font-size: 100px;
+  }
+
+  .profilesContainer {
+    position: relative;
+    display: flex;
+    width: 100%;
+  }
+
+  .profileInner {
+    position: relative;
+    width: 50%;
+    height: 250px;
+    margin: auto;
+    text-align: center;
+  }
+
+</style>
