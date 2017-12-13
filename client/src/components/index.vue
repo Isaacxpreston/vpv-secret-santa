@@ -92,18 +92,12 @@
             duration: 3000,
             offset: "-=1000"
           })
-          // .add({
-          //   targets: ".bg",
-          //   opacity: 1,
-          //   easing: 'easeInOutCubic',
-          //   duration: 1000
-          // })
           .add({
             targets: ".resetButton",
             opacity: 1,
             easing: 'easeInOutCubic',
             duration: 1000,
-            complete () {
+            complete() {
               ctx.resetButtonClass['pointer-none'] = false
             }
           })
