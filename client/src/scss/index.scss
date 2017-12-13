@@ -1,5 +1,22 @@
+// html, body {
+//   font-family: sans-serif;
+//   font-weight: lighter;
+// }
+
 .hidden {
   opacity: 0;
+}
+
+.pointer-none {
+  pointer-events: none;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.text-center {
+  text-align: center;
 }
 
 .profile {
