@@ -2,21 +2,21 @@
   <div class="container">
 
     <div v-if="!profileOne || !profileTwo" class="text-center">
-      <h1>enter your password</h1>
-      <input placeholder="enter password..." v-model="password" v-on:keydown="checkForEnter"></input>
-      <h1 v-on:click="getProfiles" class="cursor-pointer">submit</h1>
+      <h1>Enter your password</h1>
+      <input placeholder="Enter password..." v-model="password" v-on:keydown="checkForEnter"></input>
+      <h1 v-on:click="getProfiles" class="cursor-pointer">Submit</h1>
     </div>
 
 
     <div v-if="profileOne || profileTwo">
       <div class="profilesContainer">
         <div class="profileInner">
-          <h1 :class="nameClass">You: {{profileOne}}</h1>
           <component :is="profileOne.toLowerCase()" :data="profileData"></component>
+          <h1 :class="nameClass">{{profileOne}}</h1>
         </div>
         <div class="profileInner">
-          <h1 :class="nameClass">You need to buy a gift for: {{profileTwo}}</h1>
           <component :is="profileTwo.toLowerCase()" :data="profileData"></component>
+          <h1 :class="nameClass">You are buying for: {{profileTwo}}</h1>
         </div>
       </div>
 
@@ -157,9 +157,13 @@
     margin: auto;
     text-align: center;
     overflow: hidden;
-    svg {
-      height: 250px;
-    }
+    // svg {
+    //   height: 250px;
+    // }
+  }
+
+  input {
+    transform: scale(1.5, 1.5);
   }
 
 </style>
